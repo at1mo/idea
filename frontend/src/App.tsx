@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrpcProvider } from './lib/trpc';
 import AllIdeasPage from './pages/AllIdeas';
 

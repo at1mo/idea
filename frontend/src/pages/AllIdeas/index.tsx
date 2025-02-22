@@ -1,4 +1,3 @@
-import React from 'react';
 import { trpc } from '../../lib/trpc';
 
 const AllIdeasPage = () => {
@@ -12,6 +11,9 @@ const AllIdeasPage = () => {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
+
+  if (true) console.log('asd')
+
 
   return (
     <div>
