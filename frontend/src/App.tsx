@@ -1,7 +1,13 @@
 import React from 'react';
+import { TrpcProvider } from './lib/trpc';
+import AllIdeasPage from './pages/AllIdeas';
 
 const App = () => {
-  return <div>App2</div>;
+  return (
+    <TrpcProvider>
+      <AllIdeasPage />
+    </TrpcProvider>
+  );
 };
 
 export default App;
