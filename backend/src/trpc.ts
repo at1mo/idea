@@ -13,8 +13,6 @@ const ideas = [
   },
 ];
 
-if (true ) console.log('a')
-
 const trpc = initTRPC.create();
 
 export const trpcRouter = trpc.router({

@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --log-level warn --cache --write '{src/**/*,*}.{ts,tsx,js,jsx,json,yml,scss,css}'",
-    "check_types": "tsc --noEmit --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.node.json && tsc --noEmit --project ./tsconfig.app.json"
+    "check_types": "tsc --noEmit --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.node.json && tsc --noEmit --project ./tsconfig.app.json",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts,.tsx ."
   },
   "dependencies": {
     "@ideanick/backend": "workspace:*",

@@ -12,8 +12,7 @@ const AllIdeasPage = () => {
     return <span>Error: {error.message}</span>;
   }
 
-  if (true) console.log('asd')
-
+  if (true) console.log('asd');
 
   return (
     <div>
