@@ -12,8 +12,6 @@ const AllIdeasPage = () => {
     return <span>Error: {error.message}</span>;
   }
 
-  if (true) console.log('asd');
-
   return (
     <div>
       <h1>All ideas:</h1>

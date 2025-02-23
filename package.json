@@ -7,7 +7,7 @@
     "f": "pnpm --filter @ideanick/frontend",
     "check_types": "concurrently 'pnpm b check_types' 'pnpm f check_types'",
     "format": "pnpm -r --parallel format",
-    "lint": "concurrently 'pnpm b lint' 'pnpm f lint'"
+    "lint": "pnpm -r --parallel format"
   },
   "devDependencies": {
     "concurrently": "8.2.0",
