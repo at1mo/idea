@@ -1,11 +1,14 @@
+import { zCreateIdeaTrpcInput } from '@ideanick/backend/src/router/createIdea/input';
 import { useFormik } from 'formik';
 import { withZodSchema } from 'formik-validator-zod';
-import { z } from 'zod';
 import Input from '../../components/input';
 import Segment from '../../components/segment/segment';
 import Textarea from '../../components/textarea';
+import { trpc } from '../../lib/trpc';
 
 const NewIdeaPage = () => {
+  const createIdea = trpc.createIdea.useMutation();
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -13,22 +16,9 @@ const NewIdeaPage = () => {
       description: '',
       text: '',
     },
-    validate: withZodSchema(
-      z.object({
-        name: z.string().min(2),
-        nick: z
-          .string()
-          .min(2)
-          .regex(
-            /^[a-z0-9-]+$/,
-            'Nick may contain only lowercase letters, numbers and dashes'
-          ),
-        description: z.string().min(2),
-        text: z.string().min(50, 'Text should be at least 50 characters long'),
-      })
-    ),
-    onSubmit: (values) => {
-      console.info('Submitted', values);
+    validate: withZodSchema(zCreateIdeaTrpcInput),
+    onSubmit: async (values) => {
+      await createIdea.mutateAsync(values);
     },
   });
 

@@ -1,7 +1,7 @@
-import * as trpcExpress from '@trpc/server/adapters/express';
 import cors from 'cors';
 import express from 'express';
-import { trpcRouter } from './trpc';
+import { applyTrpcExpressApp } from './lib/trpc';
+import { trpcRouter } from './router';
 
 const app = express();
 
@@ -11,12 +11,7 @@ app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
-app.use(
-  '/trpc',
-  trpcExpress.createExpressMiddleware({
-    router: trpcRouter,
-  })
-);
+applyTrpcExpressApp(app, trpcRouter);
 
 app.listen(3001, () => {
   console.info('run server: http://localhost:3001/');
