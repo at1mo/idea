@@ -11,6 +11,9 @@ app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
+const asd: number = 5;
+console.info(asd)
+
 app.use(
   '/trpc',
   trpcExpress.createExpressMiddleware({

@@ -5,9 +5,10 @@
   "scripts": {
     "b": "pnpm --filter @ideanick/backend",
     "f": "pnpm --filter @ideanick/frontend",
-    "check_types": "concurrently 'pnpm b check_types' 'pnpm f check_types'",
-    "format": "pnpm -r --parallel format",
-    "lint": "pnpm -r --parallel format"
+    "check_types": "concurrently \"pnpm b check_types\" \"pnpm f check_types\"",
+    "format": "concurrently \"pnpm b format\" \"pnpm f format\"",
+    "lint": "concurrently \"pnpm b lint\" \"pnpm f lint\"",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "concurrently": "8.2.0",
@@ -15,6 +16,8 @@
     "eslint-config-prettier": "9.0.0",
     "eslint-config-react-app": "7.0.1",
     "eslint-config-standard-with-typescript": "^37.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
     "prettier": "^3.4.2"
   }
 }
