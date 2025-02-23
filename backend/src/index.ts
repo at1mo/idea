@@ -12,7 +12,7 @@ app.get('/ping', (req, res) => {
 });
 
 const asd: number = 5;
-console.info(asd)
+if (Math.random()) console.info(asd)
 
 app.use(
   '/trpc',
