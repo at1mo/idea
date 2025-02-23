@@ -1,5 +1,5 @@
-@import '../../styles/_vars.scss';
-@import '../../styles/_mixins.scss';
+@import '../../styles/_vars';
+@import '../../styles/_mixins';
 
 $breakpoint: '<=900px';
 
@@ -30,11 +30,17 @@ $breakpoint: '<=900px';
       font-size: 20px;
       margin-bottom: 10px;
 
-      background: linear-gradient(90deg, rgb(6, 255, 172), rgb(1, 114, 243));
+      background: linear-gradient(
+        90deg,
+        rgb(26, 241, 109),
+        rgb(1, 114, 243),
+        rgb(119, 0, 255),
+        rgb(255, 0, 149)
+      );
       background-size: 200% 200%;
-      -webkit-background-clip: text; /* Применяем градиент к тексту */
+      background-clip: text; /* Применяем градиент к тексту */
       -webkit-text-fill-color: transparent; /* Делаем текст прозрачным */
-      animation: gradientAnimation 5s ease infinite;
+      animation: gradient-animation 5s ease infinite;
     }
 
     .menu {
@@ -63,13 +69,15 @@ $breakpoint: '<=900px';
   }
 }
 
-@keyframes gradientAnimation {
+@keyframes gradient-animation {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
