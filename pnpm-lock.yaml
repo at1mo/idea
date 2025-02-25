@@ -35,6 +35,9 @@ importers:
 
   backend:
     dependencies:
+      '@prisma/client':
+        specifier: 5.2.0
+        version: 5.2.0(prisma@5.2.0)
       '@trpc/server':
         specifier: ^10.37.1
         version: 10.45.2
@@ -66,6 +69,9 @@ importers:
       prettier:
         specifier: ^3.4.2
         version: 3.4.2
+      prisma:
+        specifier: 5.2.0
+        version: 5.2.0
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1084,6 +1090,21 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@prisma/client@5.2.0':
+    resolution: {integrity: sha512-AiTjJwR4J5Rh6Z/9ZKrBBLel3/5DzUNntMohOy7yObVnVoTNVFi2kvpLZlFuKO50d7yDspOtW6XBpiAd0BVXbQ==}
+    engines: {node: '>=16.13'}
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+
+  '@prisma/engines-version@5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f':
+    resolution: {integrity: sha512-jsnKT5JIDIE01lAeCj2ghY9IwxkedhKNvxQeoyLs6dr4ZXynetD0vTy7u6wMJt8vVPv8I5DPy/I4CFaoXAgbtg==}
+
+  '@prisma/engines@5.2.0':
+    resolution: {integrity: sha512-dT7FOLUCdZmq+AunLqB1Iz+ZH/IIS1Fz2THmKZQ6aFONrQD/BQ5ecJ7g2wGS2OgyUFf4OaLam6/bxmgdOBDqig==}
 
   '@rollup/rollup-android-arm-eabi@4.32.0':
     resolution: {integrity: sha512-G2fUQQANtBPsNwiVFg4zKiPQyjVKZCUdQUol53R8E71J7AsheRMV/Yv/nB8giOcOVqP7//eB5xPqieBYZe9bGg==}
@@ -2964,6 +2985,11 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
+  prisma@5.2.0:
+    resolution: {integrity: sha512-FfFlpjVCkZwrqxDnP4smlNYSH1so+CbfjgdpioFzGGqlQAEm6VHAYSzV7jJgC3ebtY9dNOhDMS2+4/1DDSM7bQ==}
+    engines: {node: '>=16.13'}
+    hasBin: true
+
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
 
@@ -4778,6 +4804,16 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.0
+
+  '@prisma/client@5.2.0(prisma@5.2.0)':
+    dependencies:
+      '@prisma/engines-version': 5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f
+    optionalDependencies:
+      prisma: 5.2.0
+
+  '@prisma/engines-version@5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f': {}
+
+  '@prisma/engines@5.2.0': {}
 
   '@rollup/rollup-android-arm-eabi@4.32.0':
     optional: true
@@ -6861,6 +6897,10 @@ snapshots:
   prelude-ls@1.2.1: {}
 
   prettier@3.4.2: {}
+
+  prisma@5.2.0:
+    dependencies:
+      '@prisma/engines': 5.2.0
 
   prop-types@15.8.1:
     dependencies:

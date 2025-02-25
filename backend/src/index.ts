@@ -1,18 +1,24 @@
 import cors from 'cors';
 import express from 'express';
+import { type AppContext, createAppContext } from './lib/ctx';
 import { applyTrpcExpressApp } from './lib/trpc';
 import { trpcRouter } from './router';
 
-const app = express();
+void (async () => {
+  let ctx: AppContext | null = null;
+  try {
+    ctx = createAppContext();
+    const app = express();
 
-app.use(cors());
+    app.use(cors());
 
-app.get('/ping', (req, res) => {
-  res.send('pong');
-});
+    applyTrpcExpressApp(app, ctx, trpcRouter);
 
-applyTrpcExpressApp(app, trpcRouter);
-
-app.listen(3001, () => {
-  console.info('run server: http://localhost:3001/');
-});
+    app.listen(3001, () => {
+      console.info('run server: http://localhost:3001/');
+    });
+  } catch (error) {
+    console.error(error);
+    await ctx?.stop();
+  }
+})();
