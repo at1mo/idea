@@ -5,6 +5,7 @@ import { createTRPCReact } from '@trpc/react-query';
 import Cookie from 'js-cookie';
 import React from 'react';
 import superjson from 'superjson';
+import { env } from './env';
 
 export const trpc = createTRPCReact<TrpcRouter>();
 
@@ -21,7 +22,7 @@ const trpcClient = trpc.createClient({
   transformer: superjson,
   links: [
     httpBatchLink({
-      url: 'http://localhost:3001/trpc',
+      url: env.VITE_BACKEND_TRPC_URL,
       headers: () => {
         const token = Cookie.get('token');
         return {
