@@ -1,27 +1,21 @@
 import { trpc } from '../../lib/trpc';
 import { getPasswordHash } from '../../utils/getPasswordHash';
 import { signJWT } from '../../utils/signJWT';
-import { zSignUpTrpcInput } from './input';
+import { zSignInTrpcInput } from './input';
 
-export const signUpTrpcRoute = trpc.procedure
-  .input(zSignUpTrpcInput)
+export const signInTrpcRoute = trpc.procedure
+  .input(zSignInTrpcInput)
   .mutation(async ({ ctx, input }) => {
-    const exUser = await ctx.prisma.user.findUnique({
+    const user = await ctx.prisma.user.findFirst({
       where: {
-        nick: input.nick,
-      },
-    });
-    if (exUser) {
-      throw new Error('User with this nick already exists');
-    }
-    const user = await ctx.prisma.user.create({
-      data: {
         nick: input.nick,
         password: getPasswordHash(input.password),
       },
     });
+    if (!user) {
+      throw new Error('Wrong nick or password');
+    }
 
     const token = signJWT(user.id);
-
     return { token };
   });

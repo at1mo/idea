@@ -15,3 +15,5 @@ export const getViewIdeaRoute = ({ ideaNick }: TViewIdeaRouteParams) =>
 export const getNewIdeaRoute = () => '/ideas/new';
 
 export const getSignUpRoute = () => '/sign-up';
+export const getSignInRoute = () => '/sign-in';
+export const getSingOutRoute = () => '/sign-out';
