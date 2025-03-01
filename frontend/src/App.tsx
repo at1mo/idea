@@ -4,6 +4,7 @@ import * as routes from './lib/routes';
 import { TrpcProvider } from './lib/trpc';
 import AllIdeasPage from './pages/AllIdeas';
 import NewIdeaPage from './pages/NewIdeaPage';
+import { SignUpPage } from './pages/SingUp';
 import ViewIdeaPage from './pages/ViewIdeaPage';
 
 import './styles/global.scss';
@@ -14,6 +15,8 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
+            <Route path={routes.getSignUpRoute()} element={<SignUpPage />} />
+
             <Route
               path={routes.getAllIdeasRoute()}
               element={<AllIdeasPage />}

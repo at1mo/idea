@@ -9,6 +9,7 @@ type IPropsInput = {
   formik: FormikProps<any>;
   style?: CSSProperties;
   maxWidth?: number;
+  type?: 'text' | 'password';
 };
 
 const Input: FC<IPropsInput> = ({
@@ -17,6 +18,7 @@ const Input: FC<IPropsInput> = ({
   style = undefined,
   formik,
   maxWidth,
+  type = 'text',
 }) => {
   const value = formik.values[name];
   const errorText = formik.errors[name] as string | undefined;
@@ -38,7 +40,7 @@ const Input: FC<IPropsInput> = ({
           [styles.invalid]: invalid,
         })}
         style={{ maxWidth }}
-        type="text"
+        type={type}
         onChange={(e) => {
           void formik.setFieldValue(name, e.target.value);
         }}

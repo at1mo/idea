@@ -12,7 +12,7 @@ void (async () => {
 
     app.use(cors());
 
-    applyTrpcExpressApp(app, ctx, trpcRouter);
+    await applyTrpcExpressApp(app, ctx, trpcRouter);
 
     app.listen(3001, () => {
       console.info('run server: http://localhost:3001/');
