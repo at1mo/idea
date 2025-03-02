@@ -3,6 +3,7 @@ import Layout from './components/layout';
 import { AppContextProvider } from './lib/ctx';
 import * as routes from './lib/routes';
 import { TrpcProvider } from './lib/trpc';
+import { EditProfilePage } from './pages/auth/EditProfile';
 import SignOutPage from './pages/auth/SignOut';
 import { SignInPage } from './pages/auth/SingIn';
 import { SignUpPage } from './pages/auth/SingUp';
@@ -32,6 +33,10 @@ const App = () => {
               <Route
                 path={routes.getNewIdeaRoute()}
                 element={<NewIdeaPage />}
+              />
+              <Route
+                path={routes.getEditProfileRoute()}
+                element={<EditProfilePage />}
               />
 
               <Route

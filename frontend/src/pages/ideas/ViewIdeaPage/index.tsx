@@ -28,7 +28,10 @@ const ViewIdeaPage = withPageWrapper({
         <div className={styles.createdAt}>
           Created At: {format(idea.createdAt, 'dd.MM.yyyy')}
         </div>
-        <div className={styles.author}>Author: {idea.author.nick}</div>
+        <div className={styles.author}>
+          Author: {idea.author.nick}
+          {idea.author.name ? ` (${idea.author.name})` : ''}
+        </div>
         <div
           className={styles.text}
           dangerouslySetInnerHTML={{ __html: idea.text }}

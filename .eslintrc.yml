@@ -6,6 +6,7 @@ ignorePatterns:
   - dist
 plugins:
   - node
+  - jsx-a11y
 rules:
   import/order:
     - error

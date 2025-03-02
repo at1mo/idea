@@ -2,6 +2,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { useMe } from '../../lib/ctx';
 import {
   getAllIdeasRoute,
+  getEditProfileRoute,
   getNewIdeaRoute,
   getSignInRoute,
   getSignUpRoute,
@@ -15,8 +16,12 @@ const Layout = () => {
   return (
     <div className={styles.layout}>
       <div className={styles.navigation}>
-        <div className={styles.logo}>IdeaNick</div>
         <ul className={styles.menu}>
+          <li className={styles.item}>
+            <Link className={styles.link} to={getAllIdeasRoute()}>
+              <div className={styles.logo}>IdeaNick</div>
+            </Link>
+          </li>
           <li className={styles.item}>
             <Link className={styles.link} to={getAllIdeasRoute()}>
               All Ideas
@@ -28,6 +33,11 @@ const Layout = () => {
               <li className={styles.item}>
                 <Link className={styles.link} to={getNewIdeaRoute()}>
                   Add new idea
+                </Link>
+              </li>
+              <li className={styles.item}>
+                <Link className={styles.link} to={getEditProfileRoute()}>
+                  Edit profile
                 </Link>
               </li>
               <li className={styles.item}>
