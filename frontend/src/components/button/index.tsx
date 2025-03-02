@@ -3,7 +3,7 @@ import React, { type FC } from 'react';
 
 import styles from './index.module.scss';
 
-type IPropsButton = {
+export type IPropsButton = {
   children: React.ReactNode;
   loading?: boolean;
 };
