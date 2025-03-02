@@ -10,7 +10,6 @@ import { EditIdeaPage } from './pages/ideas/EditIdea';
 import AllIdeasPage from './pages/ideas/EditIdea/AllIdeas';
 import NewIdeaPage from './pages/ideas/NewIdeaPage';
 import ViewIdeaPage from './pages/ideas/ViewIdeaPage';
-
 import { NotFoundPage } from './pages/other/NotFound';
 
 import './styles/global.scss';
