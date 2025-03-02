@@ -3,13 +3,15 @@ import Layout from './components/layout';
 import { AppContextProvider } from './lib/ctx';
 import * as routes from './lib/routes';
 import { TrpcProvider } from './lib/trpc';
-import AllIdeasPage from './pages/AllIdeas';
-import { EditIdeaPage } from './pages/EditIdea';
-import NewIdeaPage from './pages/NewIdeaPage';
-import SignOutPage from './pages/SignOut';
-import { SignInPage } from './pages/SingIn';
-import { SignUpPage } from './pages/SingUp';
-import ViewIdeaPage from './pages/ViewIdeaPage';
+import SignOutPage from './pages/auth/SignOut';
+import { SignInPage } from './pages/auth/SingIn';
+import { SignUpPage } from './pages/auth/SingUp';
+import { EditIdeaPage } from './pages/ideas/EditIdea';
+import AllIdeasPage from './pages/ideas/EditIdea/AllIdeas';
+import NewIdeaPage from './pages/ideas/NewIdeaPage';
+import ViewIdeaPage from './pages/ideas/ViewIdeaPage';
+
+import { NotFoundPage } from './pages/other/NotFound';
 
 import './styles/global.scss';
 
@@ -41,6 +43,7 @@ const App = () => {
                 path={routes.getEditIdeaRoute(routes.editIdeaRouteParams)}
                 element={<EditIdeaPage />}
               />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

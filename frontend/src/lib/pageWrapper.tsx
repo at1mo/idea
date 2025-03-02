@@ -5,8 +5,24 @@ import {
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ErrorPageComponent } from '../components/errorPageComponent';
+import { NotFoundPage } from '../pages/other/NotFound';
 import { useAppContext, type AppContext } from './ctx';
 import { getAllIdeasRoute } from './routes';
+
+class CheckExistsError extends Error {}
+const checkExistsFn = <T,>(value: T, message?: string): NonNullable<T> => {
+  if (!value) {
+    throw new CheckExistsError(message);
+  }
+  return value;
+};
+
+class CheckAccessError extends Error {}
+const checkAccessFn = <T,>(value: T, message?: string): void => {
+  if (!value) {
+    throw new CheckAccessError(message);
+  }
+};
 
 type Props = Record<string, any>;
 type QueryResult = UseTRPCQueryResult<any, any>;
@@ -18,6 +34,11 @@ type HelperProps<TQueryResult extends QueryResult | undefined> = {
     ? QuerySuccessResult<TQueryResult>
     : undefined;
 };
+type SetPropsProps<TQueryResult extends QueryResult | undefined> =
+  HelperProps<TQueryResult> & {
+    checkExists: typeof checkExistsFn;
+    checkAccess: typeof checkAccessFn;
+  };
 type PageWrapperProps<
   TProps extends Props,
   TQueryResult extends QueryResult | undefined,
@@ -37,7 +58,7 @@ type PageWrapperProps<
   checkExistsMessage?: string;
 
   useQuery?: () => TQueryResult;
-  setProps?: (helperProps: HelperProps<TQueryResult>) => TProps;
+  setProps?: (setPropsProps: SetPropsProps<TQueryResult>) => TProps;
   Page: React.FC<TProps>;
 };
 
@@ -53,8 +74,8 @@ const PageWrapper = <
   checkAccessTitle = 'Access Denied',
   checkAccessMessage = 'You have no access to this page',
   checkExists,
-  checkExistsTitle = 'Not Found',
-  checkExistsMessage = 'This page does not exist',
+  checkExistsTitle,
+  checkExistsMessage,
   useQuery,
   setProps,
   Page,
@@ -94,10 +115,7 @@ const PageWrapper = <
     const accessDenied = !checkAccess(helperProps);
     if (accessDenied) {
       return (
-        <ErrorPageComponent
-          title={checkAccessTitle}
-          message={checkAccessMessage}
-        />
+        <NotFoundPage title={checkAccessTitle} message={checkAccessMessage} />
       );
     }
   }
@@ -106,16 +124,37 @@ const PageWrapper = <
     const notExists = !checkExists(helperProps);
     if (notExists) {
       return (
-        <ErrorPageComponent
-          title={checkExistsTitle}
-          message={checkExistsMessage}
-        />
+        <NotFoundPage title={checkExistsTitle} message={checkExistsMessage} />
       );
     }
   }
 
-  const props = setProps?.(helperProps) as TProps;
-  return <Page {...props} />;
+  try {
+    const props = setProps?.({
+      ...helperProps,
+      checkExists: checkExistsFn,
+      checkAccess: checkAccessFn,
+    }) as TProps;
+    return <Page {...props} />;
+  } catch (error) {
+    if (error instanceof CheckExistsError) {
+      return (
+        <ErrorPageComponent
+          title={checkExistsTitle}
+          message={error.message || checkExistsMessage}
+        />
+      );
+    }
+    if (error instanceof CheckAccessError) {
+      return (
+        <ErrorPageComponent
+          title={checkAccessTitle}
+          message={error.message || checkAccessMessage}
+        />
+      );
+    }
+    throw error;
+  }
 };
 
 export const withPageWrapper = <
