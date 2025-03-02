@@ -2,42 +2,26 @@ import format from 'date-fns/format';
 import { useParams } from 'react-router-dom';
 import LinkButton from '../../components/linkButton';
 import Segment from '../../components/segment/segment';
+import { withPageWrapper } from '../../lib/pageWrapper';
 import { getEditIdeaRoute, type TViewIdeaRouteParams } from '../../lib/routes';
 import { trpc } from '../../lib/trpc';
 import styles from './index.module.scss';
 
-const ViewIdeaPage = () => {
-  const { ideaNick } = useParams() as TViewIdeaRouteParams;
-
-  const getIdeaResult = trpc.getIdea.useQuery({
-    ideaNick,
-  });
-  const getMeResult = trpc.getMe.useQuery();
-
-  if (
-    getIdeaResult.isLoading ||
-    getIdeaResult.isFetching ||
-    getMeResult.isLoading ||
-    getMeResult.isFetching
-  ) {
-    return <span>Loading data...</span>;
-  }
-
-  if (getIdeaResult.isError) {
-    return <span>Error: {getIdeaResult.error.message}</span>;
-  }
-
-  if (getMeResult.isError) {
-    return <span>Error: {getMeResult.error.message}</span>;
-  }
-
-  if (!getIdeaResult.data.idea) {
-    return <span>Idea not found</span>;
-  }
-
-  const idea = getIdeaResult.data.idea;
-  const me = getMeResult.data.me;
-
+const ViewIdeaPage = withPageWrapper({
+  useQuery: () => {
+    const { ideaNick } = useParams() as TViewIdeaRouteParams;
+    return trpc.getIdea.useQuery({
+      ideaNick,
+    });
+  },
+  checkExists: ({ queryResult }) => !!queryResult.data.idea,
+  checkExistsMessage: 'Idea not found',
+  setProps: ({ queryResult, ctx }) => ({
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    idea: queryResult.data.idea!,
+    me: ctx.me,
+  }),
+})(({ idea, me }) => {
   return (
     <div>
       <Segment title={idea.name} description={idea.description}>
@@ -59,6 +43,6 @@ const ViewIdeaPage = () => {
       </Segment>
     </div>
   );
-};
+});
 
 export default ViewIdeaPage;

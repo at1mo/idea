@@ -6,9 +6,12 @@ import Input from '../../components/input';
 import Segment from '../../components/segment/segment';
 import Textarea from '../../components/textarea';
 import { useForm } from '../../lib/form';
+import { withPageWrapper } from '../../lib/pageWrapper';
 import { trpc } from '../../lib/trpc';
 
-const NewIdeaPage = () => {
+const NewIdeaPage = withPageWrapper({
+  authorizedOnly: true,
+})(() => {
   const createIdea = trpc.createIdea.useMutation();
 
   const { formik, buttonProps, alertProps } = useForm({
@@ -52,6 +55,6 @@ const NewIdeaPage = () => {
       </form>
     </Segment>
   );
-};
+});
 
 export default NewIdeaPage;
