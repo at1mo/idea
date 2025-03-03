@@ -1,4 +1,7 @@
+import { zUpdatePasswordTrpcInput } from '@ideanick/backend/src/router/auth/updatePassword/input';
 import { zUpdateProfileTrpcInput } from '@ideanick/backend/src/router/auth/updateProfile/input';
+import { z } from 'zod';
+import { type TrpcRouterOutput } from '../../../../../backend/src/router/index';
 import Alert from '../../../components/alert';
 import Button from '../../../components/button';
 import FormItems from '../../../components/formItems';
@@ -8,13 +11,11 @@ import { useForm } from '../../../lib/form';
 import { withPageWrapper } from '../../../lib/pageWrapper';
 import { trpc } from '../../../lib/trpc';
 
-export const EditProfilePage = withPageWrapper({
-  authorizedOnly: true,
-  setProps: ({ ctx }) => ({
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    me: ctx.me!,
-  }),
-})(({ me }) => {
+const General = ({
+  me,
+}: {
+  me: NonNullable<TrpcRouterOutput['getMe']['me']>;
+}) => {
   const trpcUtils = trpc.useContext();
   const updateProfile = trpc.updateProfile.useMutation();
   const { formik, alertProps, buttonProps } = useForm({
@@ -32,15 +33,87 @@ export const EditProfilePage = withPageWrapper({
   });
 
   return (
+    <form onSubmit={formik.handleSubmit}>
+      <FormItems>
+        <Input label="Nick" name="nick" formik={formik} />
+        <Input label="Name" name="name" formik={formik} />
+        <Alert {...alertProps} />
+        <Button {...buttonProps}>Update Profile</Button>
+      </FormItems>
+    </form>
+  );
+};
+
+const Password = () => {
+  const updatePassword = trpc.updatePassword.useMutation();
+  const { formik, alertProps, buttonProps } = useForm({
+    initialValues: {
+      oldPassword: '',
+      newPassword: '',
+      newPasswordAgain: '',
+    },
+    validationSchema: zUpdatePasswordTrpcInput
+      .extend({
+        newPasswordAgain: z.string().min(1),
+      })
+      .superRefine((val, ctx) => {
+        if (val.newPassword !== val.newPasswordAgain) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Passwords must be the same',
+            path: ['newPasswordAgain'],
+          });
+        }
+      }),
+    onSubmit: async ({ newPassword, oldPassword }) => {
+      await updatePassword.mutateAsync({ newPassword, oldPassword });
+    },
+    successMessage: 'Password updated',
+  });
+
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <FormItems>
+        <Input
+          label="Old password"
+          name="oldPassword"
+          type="password"
+          formik={formik}
+        />
+        <Input
+          label="New password"
+          name="newPassword"
+          type="password"
+          formik={formik}
+        />
+        <Input
+          label="New password again"
+          name="newPasswordAgain"
+          type="password"
+          formik={formik}
+        />
+        <Alert {...alertProps} />
+        <Button {...buttonProps}>Update Password</Button>
+      </FormItems>
+    </form>
+  );
+};
+
+export const EditProfilePage = withPageWrapper({
+  authorizedOnly: true,
+  setProps: ({ getAuthorizedMe }) => ({
+    me: getAuthorizedMe(),
+  }),
+})(({ me }) => {
+  return (
     <Segment title="Edit Profile">
-      <form onSubmit={formik.handleSubmit}>
-        <FormItems>
-          <Input label="Nick" name="nick" formik={formik} />
-          <Input label="Name" name="name" formik={formik} />
-          <Alert {...alertProps} />
-          <Button {...buttonProps}>Update Profile</Button>
-        </FormItems>
-      </form>
+      <Segment title="General" size={2}>
+        <General me={me} />
+      </Segment>
+
+      <Segment title="Password" size={2}>
+        <Password />
+      </Segment>
     </Segment>
   );
 });
