@@ -1,5 +1,5 @@
-@import '../../../../styles/_vars';
-@import '../../../../styles/_mixins';
+@import '../../../styles/_vars';
+@import '../../../styles/_mixins';
 
 .ideas {
   .idea {
@@ -15,4 +15,8 @@
       @include link;
     }
   }
+}
+
+.more {
+  margin-top: 15px;
 }

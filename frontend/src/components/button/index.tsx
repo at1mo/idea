@@ -15,10 +15,11 @@ const Button: FC<IPropsButton> = ({ children, loading = false }) => {
       className={cn({
         [styles.button]: true,
         [styles.disabled]: loading,
+        [styles.loading]: loading,
       })}
       disabled={loading}
     >
-      {loading ? 'Submitting' : children}
+      <span className={styles.text}>{children}</span>
     </button>
   );
 };

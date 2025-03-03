@@ -24,5 +24,9 @@
     "lint-staged": "^15.4.3",
     "prettier": "^3.4.2",
     "prettier-eslint": "^16.3.0"
+  },
+  "dependencies": {
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-promise": "^7.2.1"
   }
 }

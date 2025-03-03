@@ -7,6 +7,8 @@ ignorePatterns:
 plugins:
   - node
   - jsx-a11y
+  - flowtype
+  - promise
 rules:
   import/order:
     - error
