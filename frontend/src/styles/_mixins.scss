@@ -6,6 +6,12 @@
   color: $color;
   transition: color 300ms ease;
 
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+
   &:hover,
   &:active {
     color: $hoverColor;

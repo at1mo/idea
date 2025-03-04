@@ -8,7 +8,7 @@ type IPropsInput = {
   label: string;
   formik: FormikProps<any>;
   style?: CSSProperties;
-  maxWidth?: number;
+  maxWidth?: number | string;
   type?: 'text' | 'password';
 };
 

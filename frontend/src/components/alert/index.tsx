@@ -4,7 +4,7 @@ import React, { type FC } from 'react';
 import styles from './index.module.scss';
 
 export type IPropsAlert = {
-  color: 'red' | 'green';
+  color: 'red' | 'green' | 'brown';
   children: React.ReactNode;
   hidden?: boolean;
 };

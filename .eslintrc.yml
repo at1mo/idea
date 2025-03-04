@@ -9,6 +9,7 @@ plugins:
   - jsx-a11y
   - flowtype
   - promise
+  - n
 rules:
   import/order:
     - error
