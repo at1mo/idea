@@ -1,24 +1,46 @@
+import cn from 'classnames';
 import { type FormikProps } from 'formik';
 import { type CSSProperties, type FC } from 'react';
+import styles from './index.module.scss';
 
 type IPropsInput = {
   name: string;
   label: string;
   formik: FormikProps<any>;
   style?: CSSProperties;
+  maxWidth?: number | string;
+  type?: 'text' | 'password';
 };
 
-const Input: FC<IPropsInput> = ({ label, name, style = undefined, formik }) => {
+const Input: FC<IPropsInput> = ({
+  label,
+  name,
+  style = undefined,
+  formik,
+  maxWidth,
+  type = 'text',
+}) => {
   const value = formik.values[name];
   const errorText = formik.errors[name] as string | undefined;
   const touched = formik.touched[name];
+  const disabled = formik.isSubmitting;
+  const invalid = !!touched && !!errorText;
 
   return (
-    <div style={style}>
-      <label htmlFor={name}>{label}</label>
-      <br />
+    <div
+      className={cn({ [styles.field]: true, [styles.disabled]: disabled })}
+      style={style}
+    >
+      <label className={styles.label} htmlFor={name}>
+        {label}
+      </label>
       <input
-        type="text"
+        className={cn({
+          [styles.input]: true,
+          [styles.invalid]: invalid,
+        })}
+        style={{ maxWidth }}
+        type={type}
         onChange={(e) => {
           void formik.setFieldValue(name, e.target.value);
         }}
@@ -29,10 +51,9 @@ const Input: FC<IPropsInput> = ({ label, name, style = undefined, formik }) => {
         name={name}
         id={name}
         autoComplete="off"
+        disabled={disabled}
       />
-      {!!touched && !!errorText && (
-        <div style={{ color: 'red' }}>{errorText}</div>
-      )}
+      {invalid && <div className={styles.error}>{errorText}</div>}
     </div>
   );
 };
