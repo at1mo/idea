@@ -5,11 +5,13 @@ import { env } from './lib/env';
 import { applyPassportToExpressApp } from './lib/passport';
 import { applyTrpcExpressApp } from './lib/trpc';
 import { trpcRouter } from './router';
+import { presetDb } from './scripts/presetDb';
 
 void (async () => {
   let ctx: AppContext | null = null;
   try {
     ctx = createAppContext();
+    await presetDb(ctx);
     const app = express();
 
     app.use(cors());
