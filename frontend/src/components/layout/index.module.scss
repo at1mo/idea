@@ -26,21 +26,11 @@ $breakpoint: '<=900px';
     }
 
     .logo {
-      font-weight: bold;
-      font-size: 20px;
-      margin-bottom: 10px;
-
-      background: linear-gradient(
-        90deg,
-        rgb(26, 241, 109),
-        rgb(1, 114, 243),
-        rgb(119, 0, 255),
-        rgb(255, 0, 149)
-      );
-      background-size: 200% 200%;
-      background-clip: text; /* Применяем градиент к тексту */
-      -webkit-text-fill-color: transparent; /* Делаем текст прозрачным */
-      animation: gradient-animation 5s ease infinite;
+      padding-top: 2px;
+      width: 100%;
+      max-width: 130px;
+      height: auto;
+      margin-bottom: 15px;
     }
 
     .menu {
@@ -65,19 +55,5 @@ $breakpoint: '<=900px';
       overflow: visible;
       height: auto;
     }
-  }
-}
-
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
   }
 }

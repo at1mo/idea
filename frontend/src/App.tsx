@@ -1,3 +1,4 @@
+import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/layout';
 import { AppContextProvider } from './lib/ctx';
@@ -17,42 +18,53 @@ import './styles/global.scss';
 
 const App = () => {
   return (
-    <TrpcProvider>
-      <AppContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path={routes.getSingOutRoute()} element={<SignOutPage />} />
-            <Route element={<Layout />}>
-              <Route path={routes.getSignUpRoute()} element={<SignUpPage />} />
-              <Route path={routes.getSignInRoute()} element={<SignInPage />} />
+    <HelmetProvider>
+      <TrpcProvider>
+        <AppContextProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path={routes.getSingOutRoute()}
+                element={<SignOutPage />}
+              />
+              <Route element={<Layout />}>
+                <Route
+                  path={routes.getSignUpRoute()}
+                  element={<SignUpPage />}
+                />
+                <Route
+                  path={routes.getSignInRoute()}
+                  element={<SignInPage />}
+                />
 
-              <Route
-                path={routes.getAllIdeasRoute()}
-                element={<AllIdeasPage />}
-              />
-              <Route
-                path={routes.getNewIdeaRoute()}
-                element={<NewIdeaPage />}
-              />
-              <Route
-                path={routes.getEditProfileRoute()}
-                element={<EditProfilePage />}
-              />
+                <Route
+                  path={routes.getAllIdeasRoute()}
+                  element={<AllIdeasPage />}
+                />
+                <Route
+                  path={routes.getNewIdeaRoute()}
+                  element={<NewIdeaPage />}
+                />
+                <Route
+                  path={routes.getEditProfileRoute()}
+                  element={<EditProfilePage />}
+                />
 
-              <Route
-                path={routes.getViewIdeaRoute(routes.viewIdeaRouteParams)}
-                element={<ViewIdeaPage />}
-              />
-              <Route
-                path={routes.getEditIdeaRoute(routes.editIdeaRouteParams)}
-                element={<EditIdeaPage />}
-              />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </AppContextProvider>
-    </TrpcProvider>
+                <Route
+                  path={routes.getViewIdeaRoute(routes.viewIdeaRouteParams)}
+                  element={<ViewIdeaPage />}
+                />
+                <Route
+                  path={routes.getEditIdeaRoute(routes.editIdeaRouteParams)}
+                  element={<EditIdeaPage />}
+                />
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </AppContextProvider>
+      </TrpcProvider>
+    </HelmetProvider>
   );
 };
 

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Alert from '../../../components/alert';
 import Button from '../../../components/button';
 import FormItems from '../../../components/formItems';
+import { Icon } from '../../../components/icon';
 import LinkButton from '../../../components/linkButton';
 import Segment from '../../../components/segment/segment';
 import { useForm } from '../../../lib/form';
@@ -51,7 +52,11 @@ const LikeButton = ({
         });
       }}
     >
-      {idea.isLikedByMe ? 'Unlike' : 'Like'}
+      <Icon
+        size={32}
+        className={styles.likeIcon}
+        name={idea.isLikedByMe ? 'likeFilled' : 'likeEmpty'}
+      />
     </button>
   );
 };
@@ -93,6 +98,7 @@ const ViewIdeaPage = withPageWrapper({
     me: ctx.me,
   }),
   showLoaderOnFetching: false,
+  title: ({ idea }) => idea.name,
 })(({ idea, me }) => {
   return (
     <div>

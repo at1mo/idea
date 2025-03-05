@@ -104,6 +104,7 @@ export const EditProfilePage = withPageWrapper({
   setProps: ({ getAuthorizedMe }) => ({
     me: getAuthorizedMe(),
   }),
+  title: ({ me }) => `Edit profile ${me.nick.toUpperCase()}`,
 })(({ me }) => {
   return (
     <Segment title="Edit Profile">
