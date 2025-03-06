@@ -20,6 +20,7 @@ export const SignUpPage = withPageWrapper({
     initialValues: {
       nick: '',
       password: '',
+      email: '',
       passwordAgain: '',
     },
     validationSchema: zSignUpTrpcInput
@@ -48,6 +49,7 @@ export const SignUpPage = withPageWrapper({
       <form onSubmit={formik.handleSubmit}>
         <FormItems>
           <Input label="Nick" name="nick" formik={formik} />
+          <Input label="Email" name="email" formik={formik} />
           <Input
             label="Password"
             name="password"

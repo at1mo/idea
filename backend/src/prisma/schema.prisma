@@ -16,6 +16,7 @@ enum UserPermission {
 model User {
   id          String           @id @default(uuid())
   nick        String           @unique
+  email       String           @unique
   name        String           @default("")
   password    String
   createdAt   DateTime         @default(now())
@@ -35,7 +36,7 @@ model Idea {
   authorId     String
   author       User       @relation(fields: [authorId], references: [id])
   ideasLikes   IdeaLike[]
-  blockedAt     DateTime?
+  blockedAt    DateTime?
 }
 
 model IdeaLike {
