@@ -19,3 +19,9 @@ rules:
             - '!@ideanick/backend/src/utils/can'
           allowTypeImports: true
           message: 'Only types and input schemas are allowed to be imported from backend workspace'
+  no-console:
+    - error
+    - allow:
+        - info
+        - error
+        - warn

@@ -4,6 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import { applyCron } from './lib/cron';
 import { type AppContext, createAppContext } from './lib/ctx';
+import { logger } from './lib/logger';
 import { applyPassportToExpressApp } from './lib/passport';
 import { applyTrpcExpressApp } from './lib/trpc';
 import { trpcRouter } from './router';
@@ -22,10 +23,10 @@ void (async () => {
     applyCron(ctx);
 
     app.listen(env.PORT, () => {
-      console.info(`run server: http://localhost:${env.PORT}/`);
+      logger.info('express', `run server: http://localhost:${env.PORT}/`);
     });
   } catch (error) {
-    console.error(error);
+    logger.error('app', error);
     await ctx?.stop();
   }
 })();
