@@ -12,6 +12,7 @@ plugins:
   - n
   - import
 rules:
+  no-new: off
   import/order:
     - error
     - alphabetize:
