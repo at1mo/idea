@@ -8,7 +8,7 @@ import {
   getNewIdeaRoute,
   getSignInRoute,
   getSignUpRoute,
-  getSingOutRoute,
+  getSignOutRoute,
 } from '../../lib/routes';
 import styles from './index.module.scss';
 
@@ -45,7 +45,7 @@ const Layout = () => {
                 </Link>
               </li>
               <li className={styles.item}>
-                <Link className={styles.link} to={getSingOutRoute()}>
+                <Link className={styles.link} to={getSignOutRoute()}>
                   Log Out ({me.nick})
                 </Link>
               </li>

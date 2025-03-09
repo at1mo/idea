@@ -24,39 +24,37 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route
-                path={routes.getSingOutRoute()}
+                path={routes.getSignOutRoute.definition}
                 element={<SignOutPage />}
               />
               <Route element={<Layout />}>
                 <Route
-                  path={routes.getSignUpRoute()}
+                  path={routes.getSignUpRoute.definition}
                   element={<SignUpPage />}
                 />
                 <Route
-                  path={routes.getSignInRoute()}
+                  path={routes.getSignInRoute.definition}
                   element={<SignInPage />}
                 />
-
                 <Route
-                  path={routes.getAllIdeasRoute()}
+                  path={routes.getEditProfileRoute.definition}
+                  element={<EditProfilePage />}
+                />
+                <Route
+                  path={routes.getAllIdeasRoute.definition}
                   element={<AllIdeasPage />}
                 />
                 <Route
-                  path={routes.getNewIdeaRoute()}
-                  element={<NewIdeaPage />}
-                />
-                <Route
-                  path={routes.getEditProfileRoute()}
-                  element={<EditProfilePage />}
-                />
-
-                <Route
-                  path={routes.getViewIdeaRoute(routes.viewIdeaRouteParams)}
+                  path={routes.getViewIdeaRoute.definition}
                   element={<ViewIdeaPage />}
                 />
                 <Route
-                  path={routes.getEditIdeaRoute(routes.editIdeaRouteParams)}
+                  path={routes.getEditIdeaRoute.definition}
                   element={<EditIdeaPage />}
+                />
+                <Route
+                  path={routes.getNewIdeaRoute.definition}
+                  element={<NewIdeaPage />}
                 />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
