@@ -1,6 +1,7 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/layout';
+import { NotAuthRouteTracker } from './components/nonAuthRouteTracker';
 import { AppContextProvider } from './lib/ctx';
 import * as routes from './lib/routes';
 import { TrpcProvider } from './lib/trpc';
@@ -22,6 +23,7 @@ const App = () => {
       <TrpcProvider>
         <AppContextProvider>
           <BrowserRouter>
+            <NotAuthRouteTracker />
             <Routes>
               <Route
                 path={routes.getSignOutRoute.definition}
