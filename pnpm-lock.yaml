@@ -72,6 +72,9 @@ importers:
       '@ideanick/frontend':
         specifier: workspace:*
         version: link:../frontend
+      '@ideanick/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@prisma/client':
         specifier: 5.2.0
         version: 5.2.0(prisma@5.2.0)
@@ -184,6 +187,9 @@ importers:
       '@ideanick/backend':
         specifier: workspace:*
         version: link:../backend
+      '@ideanick/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@tanstack/react-query':
         specifier: 4.32.6
         version: 4.32.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -287,6 +293,16 @@ importers:
       vite-plugin-svgr:
         specifier: 3.2.0
         version: 3.2.0(rollup@4.32.0)(typescript@5.7.3)(vite@6.0.11(@types/node@22.10.10)(sass@1.66.1)(yaml@2.7.0))
+
+  shared:
+    dependencies:
+      zod:
+        specifier: ^3.21.4
+        version: 3.22.2
+    devDependencies:
+      '@types/node':
+        specifier: 20.3.1
+        version: 20.3.1
 
 packages:
 
@@ -1677,6 +1693,9 @@ packages:
 
   '@types/minimist@1.2.5':
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
+
+  '@types/node@20.3.1':
+    resolution: {integrity: sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==}
 
   '@types/node@22.10.10':
     resolution: {integrity: sha512-X47y/mPNzxviAGY5TcYPtYL8JsY3kAq2n8fMmKoRCxq/c4v4pyGNCzM2R6+M5/umG4ZfHuT+sgqDYqWc9rJ6ww==}
@@ -6392,6 +6411,8 @@ snapshots:
   '@types/mime@1.3.5': {}
 
   '@types/minimist@1.2.5': {}
+
+  '@types/node@20.3.1': {}
 
   '@types/node@22.10.10':
     dependencies:

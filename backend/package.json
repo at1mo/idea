@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@ideanick/frontend": "workspace:*",
+    "@ideanick/shared": "workspace:*",
     "@prisma/client": "5.2.0",
     "@trpc/server": "^10.37.1",
     "axios": "1.5.0",
