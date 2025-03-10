@@ -26,7 +26,7 @@
     "@ideanick/frontend": "workspace:*",
     "@ideanick/shared": "workspace:*",
     "@prisma/client": "5.2.0",
-    "@trpc/server": "^10.37.1",
+    "@trpc/server": "^10.45.2",
     "axios": "1.5.0",
     "cors": "^2.8.5",
     "cron": "2.4.3",
