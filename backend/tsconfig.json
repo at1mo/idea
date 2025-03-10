@@ -4,6 +4,10 @@
     "transpileOnly": true
   },
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ideanick/frontend/*": ["../frontend/*"]
+    },
     "outDir": "./dist",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,

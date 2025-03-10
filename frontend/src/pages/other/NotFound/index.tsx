@@ -1,4 +1,6 @@
+import imgNotFound from '../../../assets/images/not_found.svg';
 import { ErrorPageComponent } from '../../../components/errorPageComponent';
+import styles from './index.module.scss';
 
 export const NotFoundPage = ({
   title = 'Not Found',
@@ -6,4 +8,10 @@ export const NotFoundPage = ({
 }: {
   title?: string;
   message?: string;
-}) => <ErrorPageComponent title={title} message={message} />;
+}) => {
+  return (
+    <ErrorPageComponent title={title} message={message}>
+      <img className={styles.img} src={imgNotFound} alt="not found" />
+    </ErrorPageComponent>
+  );
+};

@@ -1,0 +1,10 @@
+.img {
+  width: 100%;
+  height: calc(100vh - 140px);
+}
+
+@media (width <= 1400px) {
+  .img {
+    height: 100%;
+  }
+}

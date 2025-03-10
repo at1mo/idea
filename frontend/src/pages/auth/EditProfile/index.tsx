@@ -1,6 +1,9 @@
 import { zUpdatePasswordTrpcInput } from '@ideanick/backend/src/router/auth/updatePassword/input';
 import { zUpdateProfileTrpcInput } from '@ideanick/backend/src/router/auth/updateProfile/input';
-import { z } from 'zod';
+import {
+  zPasswordsMustBeTheSame,
+  zStringRequired,
+} from '@ideanick/shared/src/zod';
 import { type TrpcRouterOutput } from '../../../../../backend/src/router/index';
 import Alert from '../../../components/alert';
 import Button from '../../../components/button';
@@ -54,17 +57,9 @@ const Password = () => {
     },
     validationSchema: zUpdatePasswordTrpcInput
       .extend({
-        newPasswordAgain: z.string().min(1),
+        newPasswordAgain: zStringRequired,
       })
-      .superRefine((val, ctx) => {
-        if (val.newPassword !== val.newPasswordAgain) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Passwords must be the same',
-            path: ['newPasswordAgain'],
-          });
-        }
-      }),
+      .superRefine(zPasswordsMustBeTheSame('newPassword', 'newPasswordAgain')),
     onSubmit: async ({ newPassword, oldPassword }) => {
       await updatePassword.mutateAsync({ newPassword, oldPassword });
     },
@@ -104,6 +99,7 @@ export const EditProfilePage = withPageWrapper({
   setProps: ({ getAuthorizedMe }) => ({
     me: getAuthorizedMe(),
   }),
+  title: ({ me }) => `Edit profile ${me.nick.toUpperCase()}`,
 })(({ me }) => {
   return (
     <Segment title="Edit Profile">

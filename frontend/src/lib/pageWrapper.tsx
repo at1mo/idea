@@ -1,14 +1,16 @@
+import { useStore } from '@nanostores/react';
 import {
   type UseTRPCQueryResult,
   type UseTRPCQuerySuccessResult,
 } from '@trpc/react-query/shared';
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { ErrorPageComponent } from '../components/errorPageComponent';
 import { Loader } from '../components/loader';
+import { lastVisistedNotAuthRouteStore } from '../components/nonAuthRouteTracker';
 import { NotFoundPage } from '../pages/other/NotFound';
 import { useAppContext, type AppContext } from './ctx';
-import { getAllIdeasRoute } from './routes';
 
 class CheckExistsError extends Error {}
 const checkExistsFn = <T,>(value: T, message?: string): NonNullable<T> => {
@@ -66,6 +68,9 @@ type PageWrapperProps<
   useQuery?: () => TQueryResult;
   setProps?: (setPropsProps: SetPropsProps<TQueryResult>) => TProps;
   Page: React.FC<TProps>;
+
+  title: string | ((titleProps: HelperProps<TQueryResult> & TProps) => string);
+  isTitleExact?: boolean;
 };
 
 const PageWrapper = <
@@ -86,7 +91,10 @@ const PageWrapper = <
   setProps,
   Page,
   showLoaderOnFetching = true,
+  title,
+  isTitleExact = false,
 }: PageWrapperProps<TProps, TQueryResult>) => {
+  const lastVisistedNotAuthRoute = useStore(lastVisistedNotAuthRouteStore);
   const navigate = useNavigate();
   const ctx = useAppContext();
   const queryResult = useQuery?.();
@@ -95,9 +103,9 @@ const PageWrapper = <
 
   useEffect(() => {
     if (redirectNeeded) {
-      void navigate(getAllIdeasRoute(), { replace: true });
+      void navigate(lastVisistedNotAuthRoute, { replace: true });
     }
-  }, [redirectNeeded, navigate]);
+  }, [redirectNeeded, navigate, lastVisistedNotAuthRoute]);
 
   if (
     queryResult?.isLoading ||
@@ -154,7 +162,19 @@ const PageWrapper = <
       checkAccess: checkAccessFn,
       getAuthorizedMe,
     }) as TProps;
-    return <Page {...props} />;
+    const calculatedTitle =
+      typeof title === 'function' ? title({ ...helperProps, ...props }) : title;
+    const exactTitle = isTitleExact
+      ? calculatedTitle
+      : `${calculatedTitle} - IdeaNick`;
+    return (
+      <>
+        <Helmet>
+          <title>{exactTitle}</title>
+        </Helmet>
+        <Page {...props} />
+      </>
+    );
   } catch (error) {
     if (error instanceof CheckExistsError) {
       return (

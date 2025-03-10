@@ -11,6 +11,7 @@ import { trpc } from '../../../lib/trpc';
 
 const NewIdeaPage = withPageWrapper({
   authorizedOnly: true,
+  title: 'New idea',
 })(() => {
   const createIdea = trpc.createIdea.useMutation();
 

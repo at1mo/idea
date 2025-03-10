@@ -1,6 +1,9 @@
 import { zSignUpTrpcInput } from '@ideanick/backend/src/router/auth/signUp/input';
+import {
+  zPasswordsMustBeTheSame,
+  zStringRequired,
+} from '@ideanick/shared/src/zod';
 import Cookies from 'js-cookie';
-import { z } from 'zod';
 import Alert from '../../../components/alert';
 import Button from '../../../components/button';
 import FormItems from '../../../components/formItems';
@@ -12,6 +15,7 @@ import { trpc } from '../../../lib/trpc';
 
 export const SignUpPage = withPageWrapper({
   redirectAuthorized: true,
+  title: 'Sign up',
 })(() => {
   const trpcUtils = trpc.useContext();
   const signUp = trpc.signUp.useMutation();
@@ -19,21 +23,14 @@ export const SignUpPage = withPageWrapper({
     initialValues: {
       nick: '',
       password: '',
+      email: '',
       passwordAgain: '',
     },
     validationSchema: zSignUpTrpcInput
       .extend({
-        passwordAgain: z.string().min(2),
+        passwordAgain: zStringRequired,
       })
-      .superRefine((val, ctx) => {
-        if (val.password !== val.passwordAgain) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Passwords must be the same',
-            path: ['passwordAgain'],
-          });
-        }
-      }),
+      .superRefine(zPasswordsMustBeTheSame('password', 'passwordAgain')),
     onSubmit: async (values) => {
       const { token } = await signUp.mutateAsync(values);
       Cookies.set('token', token, { expires: 99999 });
@@ -47,6 +44,7 @@ export const SignUpPage = withPageWrapper({
       <form onSubmit={formik.handleSubmit}>
         <FormItems>
           <Input label="Nick" name="nick" formik={formik} />
+          <Input label="Email" name="email" formik={formik} />
           <Input
             label="Password"
             name="password"

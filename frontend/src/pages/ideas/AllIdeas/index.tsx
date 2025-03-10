@@ -8,11 +8,15 @@ import { layoutContentElRef } from '../../../components/layout';
 import { Loader } from '../../../components/loader';
 import Segment from '../../../components/segment/segment';
 import { useForm } from '../../../lib/form';
+import { withPageWrapper } from '../../../lib/pageWrapper';
 import { getViewIdeaRoute } from '../../../lib/routes';
 import { trpc } from '../../../lib/trpc';
 import styles from './index.module.scss';
 
-const AllIdeasPage = () => {
+const AllIdeasPage = withPageWrapper({
+  title: 'All ideas',
+  isTitleExact: true,
+})(() => {
   const { formik } = useForm({
     initialValues: { search: '' },
     validationSchema: zGetIdeasTrpcInput.pick({ search: true }),
@@ -94,6 +98,6 @@ const AllIdeasPage = () => {
       )}
     </Segment>
   );
-};
+});
 
 export default AllIdeasPage;

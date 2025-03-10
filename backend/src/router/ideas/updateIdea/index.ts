@@ -1,7 +1,8 @@
-import { trpc } from '../../../lib/trpc';
+import { trpcLoggedProcedure } from '../../../lib/trpc';
+import { canEditIdea } from '../../../utils/can';
 import { zUpdateIdeaTrpcInput } from './input';
 
-export const updateIdeaTrpcRoute = trpc.procedure
+export const updateIdeaTrpcRoute = trpcLoggedProcedure
   .input(zUpdateIdeaTrpcInput)
   .mutation(async ({ ctx, input }) => {
     const { ideaId, ...ideaInput } = input;
@@ -16,7 +17,7 @@ export const updateIdeaTrpcRoute = trpc.procedure
     if (!idea) {
       throw new Error('NOT_FOUND');
     }
-    if (ctx.me.id !== idea.authorId) {
+    if (!canEditIdea(ctx.me, idea)) {
       throw new Error('NOT_YOUR_IDEA');
     }
     if (idea.nick !== input.nick) {
