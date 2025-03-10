@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { type z } from 'zod';
 import { type IPropsAlert as AlertProps } from '../components/alert';
 import { type IPropsButton as ButtonProps } from '../components/button';
+import { sentryCaptureException } from './sentry';
 
 export const useForm = <TZodSchema extends z.ZodTypeAny>({
   successMessage = false,
@@ -44,6 +45,7 @@ export const useForm = <TZodSchema extends z.ZodTypeAny>({
           setSuccessMessageVisible(false);
         }, 3000);
       } catch (error: any) {
+        sentryCaptureException(error);
         setSubmittingError(error);
       }
     },

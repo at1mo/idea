@@ -4,6 +4,7 @@ import Layout from './components/layout';
 import { NotAuthRouteTracker } from './components/nonAuthRouteTracker';
 import { AppContextProvider } from './lib/ctx';
 import * as routes from './lib/routes';
+import { SentryUser } from './lib/sentry';
 import { TrpcProvider } from './lib/trpc';
 import { EditProfilePage } from './pages/auth/EditProfile';
 import SignOutPage from './pages/auth/SignOut';
@@ -14,7 +15,6 @@ import { EditIdeaPage } from './pages/ideas/EditIdea';
 import NewIdeaPage from './pages/ideas/NewIdeaPage';
 import ViewIdeaPage from './pages/ideas/ViewIdeaPage';
 import { NotFoundPage } from './pages/other/NotFound';
-
 import './styles/global.scss';
 
 const App = () => {
@@ -23,6 +23,7 @@ const App = () => {
       <TrpcProvider>
         <AppContextProvider>
           <BrowserRouter>
+            <SentryUser />
             <NotAuthRouteTracker />
             <Routes>
               <Route

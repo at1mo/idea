@@ -16,6 +16,7 @@
     "@ideanick/backend": "workspace:*",
     "@ideanick/shared": "workspace:*",
     "@nanostores/react": "0.7.1",
+    "@sentry/react": "7.70.0",
     "@tanstack/react-query": "4.32.6",
     "@trpc/client": "^10.37.1",
     "@trpc/react-query": "^10.37.1",
