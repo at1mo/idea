@@ -1,9 +1,9 @@
 import { sendIdeaBlockedEmail } from '../../../lib/emails';
-import { trpc } from '../../../lib/trpc';
+import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { canBlockIdeas } from '../../../utils/can';
 import { zBlockIdeaTrpcInput } from './input';
 
-export const blockIdeaTrpcRoute = trpc.procedure
+export const blockIdeaTrpcRoute = trpcLoggedProcedure
   .input(zBlockIdeaTrpcInput)
   .mutation(async ({ ctx, input }) => {
     const { ideaId } = input;
