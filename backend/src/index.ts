@@ -22,6 +22,22 @@ void (async () => {
     await applyTrpcExpressApp(app, ctx, trpcRouter);
     applyCron(ctx);
 
+    app.use(
+      (
+        error: unknown,
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+      ) => {
+        logger.error('express', error);
+        if (res.headersSent) {
+          next(error);
+          return;
+        }
+        res.status(500).send('Internal server error');
+      }
+    );
+
     app.listen(env.PORT, () => {
       logger.info('express', `run server: http://localhost:${env.PORT}/`);
     });
