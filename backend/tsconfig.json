@@ -6,7 +6,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@ideanick/frontend/*": ["../frontend/*"]
+      "@ideanick/frontend/*": ["../frontend/*"],
+      "@ideanick/shared/*": ["../shared/*"]
     },
     "outDir": "./dist",
     "allowJs": true,
@@ -19,6 +20,7 @@
     "skipLibCheck": true,
     "strict": true,
     "sourceMap": true,
+    "sourceRoot": "/",
     "resolveJsonModule": true,
     "inlineSources": true,
     "isolatedModules": false,
