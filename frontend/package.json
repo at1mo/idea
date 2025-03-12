@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "test": "jest",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "format": "prettier --log-level warn --cache --write \"{src/**/*,*}.{ts,tsx,js,jsx,json,yml,scss,css}\"",
@@ -44,6 +45,7 @@
     "@sentry/vite-plugin": "2.7.1",
     "@types/js-cookie": "3.0.3",
     "@types/lodash": "4.14.198",
+    "@types/node": "22.10.10",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@types/react-infinite-scroller": "1.2.3",
