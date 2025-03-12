@@ -11,9 +11,6 @@ importers:
       eslint-plugin-flowtype:
         specifier: ^8.0.3
         version: 8.0.3(@babel/plugin-syntax-flow@7.26.0(@babel/core@7.26.7))(@babel/plugin-transform-react-jsx@7.25.9(@babel/core@7.26.7))(eslint@8.47.0)
-      eslint-plugin-import:
-        specifier: ^2.31.0
-        version: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.47.0)(typescript@5.7.3))(eslint@8.47.0)
       eslint-plugin-n:
         specifier: ^17.16.1
         version: 17.16.1(eslint@8.47.0)(typescript@5.7.3)
@@ -33,6 +30,9 @@ importers:
       copyfiles:
         specifier: 2.4.1
         version: 2.4.1
+      cross-env:
+        specifier: 7.0.3
+        version: 7.0.3
       eslint:
         specifier: '8.47'
         version: 8.47.0
@@ -45,6 +45,9 @@ importers:
       eslint-config-standard-with-typescript:
         specifier: ^37.0.0
         version: 37.0.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.47.0)(typescript@5.7.3))(eslint@8.47.0)(typescript@5.7.3))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.47.0)(typescript@5.7.3))(eslint@8.47.0))(eslint-plugin-n@17.16.1(eslint@8.47.0)(typescript@5.7.3))(eslint-plugin-promise@7.2.1(eslint@8.47.0))(eslint@8.47.0)(typescript@5.7.3)
+      eslint-plugin-import:
+        specifier: ^2.31.0
+        version: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.47.0)(typescript@5.7.3))(eslint@8.47.0)
       eslint-plugin-jest:
         specifier: 27.4.0
         version: 27.4.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.47.0)(typescript@5.7.3))(eslint@8.47.0)(typescript@5.7.3))(eslint@8.47.0)(jest@29.7.0(@types/node@22.10.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3)))(typescript@5.7.3)
@@ -2744,6 +2747,11 @@ packages:
 
   cron@2.4.3:
     resolution: {integrity: sha512-YBvExkQYF7w0PxyeFLRyr817YVDhGxaCi5/uRRMqa4aWD3IFKRd+uNbpW1VWMdqQy8PZ7CElc+accXJcauPKzQ==}
+
+  cross-env@7.0.3:
+    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
+    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
+    hasBin: true
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -8694,6 +8702,10 @@ snapshots:
     dependencies:
       '@types/luxon': 3.3.8
       luxon: 3.3.0
+
+  cross-env@7.0.3:
+    dependencies:
+      cross-spawn: 7.0.6
 
   cross-spawn@7.0.6:
     dependencies:
