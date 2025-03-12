@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node ./dist/backend/src/index.js",
     "dev": "ts-node-dev --watch ./src/emails/dist,./.env --rs --exit-child ./src/index.ts",
-    "test": "jest",
+    "test": "jest  --runInBand",
     "build": "pnpm build-ts && pnpm build-emails && pnpm copy-emails",
     "build-ts": "rimraf ./dist && tsc --build ./tsconfig.json && tsc-alias",
     "sentry-release": "dotenv -- bash -c 'sentry-cli releases new ${SOURCE_VERSION} --finalize --org atimo --project backend --auth-token ${SENTRY_AUTH_TOKEN}'",
@@ -37,6 +37,7 @@
     "axios": "1.5.0",
     "cors": "^2.8.5",
     "cron": "2.4.3",
+    "date-fns": "2.30.0",
     "debug": "4.3.4",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
