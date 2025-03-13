@@ -12,6 +12,7 @@ export const zEnv = z.object({
   VITE_BACKEND_TRPC_URL: zEnvNonemptyTrimmed,
   VITE_FRONTEND_URL: zEnvNonemptyTrimmed,
   VITE_FRONTEND_SENTRY_DSN: zEnvNonemptyTrimmedRequiredOnNotLocal,
+  VITE_CLOUDINARY_CLOUD_NAME: zEnvNonemptyTrimmed,
 });
 
 // eslint-disable-next-line node/no-process-env

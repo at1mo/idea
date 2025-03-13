@@ -83,6 +83,8 @@ const prettifyMeta = (meta: LoggerMetaData): LoggerMetaData => {
         'token',
         'text',
         'description',
+        'apiKey',
+        'signature',
       ].includes(key)
     ) {
       return '🙈';

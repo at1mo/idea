@@ -1,5 +1,6 @@
 import type { TrpcRouterOutput } from '@ideanick/backend/src/router';
 import { canBlockIdeas, canEditIdea } from '@ideanick/backend/src/utils/can';
+import { getAvatarUrl } from '@ideanick/shared/src/cloudinary';
 import format from 'date-fns/format';
 import Alert from '../../../components/alert';
 import Button from '../../../components/button';
@@ -103,8 +104,17 @@ const ViewIdeaPage = withPageWrapper({
           Created At: {format(idea.createdAt, 'dd.MM.yyyy')}
         </div>
         <div className={styles.author}>
-          Author: {idea.author.nick}
-          {idea.author.name ? ` (${idea.author.name})` : ''}
+          <img
+            className={styles.avatar}
+            alt=""
+            src={getAvatarUrl(idea.author.avatar, 'small')}
+          />
+          <div className={styles.name}>
+            Author:
+            <br />
+            {idea.author.nick}
+            {idea.author.name ? ` (${idea.author.name})` : ''}
+          </div>
         </div>
         <div
           className={styles.text}
