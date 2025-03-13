@@ -5,6 +5,7 @@
   "scripts": {
     "b": "pnpm --filter @ideanick/backend",
     "f": "pnpm --filter @ideanick/frontend",
+    "sh": "pnpm --filter @ideanick/shared",
     "check_types": "concurrently \"pnpm b check_types\" \"pnpm f check_types\"",
     "format": "concurrently \"pnpm b format\" \"pnpm f format\"",
     "lint": "concurrently \"pnpm b lint\" \"pnpm f lint\"",
