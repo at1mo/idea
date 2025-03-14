@@ -10,4 +10,5 @@ export const zCreateIdeaTrpcInput = z.object({
   nick: zNickRequired,
   description: zStringRequired,
   text: zStringMin(50),
+  images: z.array(zStringRequired),
 });

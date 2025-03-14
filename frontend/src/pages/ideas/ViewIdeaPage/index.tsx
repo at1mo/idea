@@ -1,7 +1,11 @@
 import type { TrpcRouterOutput } from '@ideanick/backend/src/router';
 import { canBlockIdeas, canEditIdea } from '@ideanick/backend/src/utils/can';
-import { getAvatarUrl } from '@ideanick/shared/src/cloudinary';
+import {
+  getAvatarUrl,
+  getCloudinaryUploadUrl,
+} from '@ideanick/shared/src/cloudinary';
 import format from 'date-fns/format';
+import ImageGallery from 'react-image-gallery';
 import Alert from '../../../components/alert';
 import Button from '../../../components/button';
 import FormItems from '../../../components/formItems';
@@ -116,6 +120,20 @@ const ViewIdeaPage = withPageWrapper({
             {idea.author.name ? ` (${idea.author.name})` : ''}
           </div>
         </div>
+
+        {!!idea.images.length && (
+          <div className={styles.gallery}>
+            <ImageGallery
+              showPlayButton={false}
+              showFullscreenButton={false}
+              items={idea.images.map((image) => ({
+                original: getCloudinaryUploadUrl(image, 'image', 'large'),
+                thumbnail: getCloudinaryUploadUrl(image, 'image', 'preview'),
+              }))}
+            />
+          </div>
+        )}
+
         <div
           className={styles.text}
           dangerouslySetInnerHTML={{ __html: idea.text }}

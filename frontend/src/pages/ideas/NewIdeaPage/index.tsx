@@ -5,6 +5,7 @@ import FormItems from '../../../components/formItems';
 import Input from '../../../components/input';
 import Segment from '../../../components/segment/segment';
 import Textarea from '../../../components/textarea';
+import { UploadsToCloudinary } from '../../../components/uploadsToCloudinary';
 import { useForm } from '../../../lib/form';
 import { withPageWrapper } from '../../../lib/pageWrapper';
 import { trpc } from '../../../lib/trpc';
@@ -21,6 +22,7 @@ const NewIdeaPage = withPageWrapper({
       nick: '',
       description: '',
       text: '',
+      images: [],
     },
     validationSchema: zCreateIdeaTrpcInput,
     onSubmit: async (values) => {
@@ -49,6 +51,13 @@ const NewIdeaPage = withPageWrapper({
             maxWidth={500}
           />
           <Textarea label="Text" name="text" formik={formik} />
+          <UploadsToCloudinary
+            label="Images"
+            name="images"
+            type="image"
+            preset={'preview'}
+            formik={formik}
+          />
           <Alert {...alertProps} />
 
           <Button {...buttonProps}>Create idea</Button>
