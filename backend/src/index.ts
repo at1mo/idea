@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/order
 import { env } from './lib/env';
 import cors from 'cors';
 import express from 'express';
