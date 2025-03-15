@@ -6,6 +6,7 @@ import { type AppContext, createAppContext } from './lib/ctx';
 import { logger } from './lib/logger';
 import { applyPassportToExpressApp } from './lib/passport';
 import { initSentry } from './lib/sentry';
+import { applyServeWebApp } from './lib/serveWebApp';
 import { applyTrpcExpressApp } from './lib/trpc';
 import { trpcRouter } from './router';
 import { presetDb } from './scripts/presetDb';
@@ -21,6 +22,7 @@ void (async () => {
     app.use(cors());
     applyPassportToExpressApp(app, ctx);
     await applyTrpcExpressApp(app, ctx, trpcRouter);
+    await applyServeWebApp(app);
     applyCron(ctx);
 
     app.use(
