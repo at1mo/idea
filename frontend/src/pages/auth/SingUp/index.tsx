@@ -10,6 +10,7 @@ import FormItems from '../../../components/formItems';
 import Input from '../../../components/input';
 import Segment from '../../../components/segment/segment';
 import { useForm } from '../../../lib/form';
+import { mixpanelAlias, mixpanelTrackSignUp } from '../../../lib/mixpanel';
 import { withPageWrapper } from '../../../lib/pageWrapper';
 import { trpc } from '../../../lib/trpc';
 
@@ -32,7 +33,9 @@ export const SignUpPage = withPageWrapper({
       })
       .superRefine(zPasswordsMustBeTheSame('password', 'passwordAgain')),
     onSubmit: async (values) => {
-      const { token } = await signUp.mutateAsync(values);
+      const { token, userId } = await signUp.mutateAsync(values);
+      mixpanelAlias(userId);
+      mixpanelTrackSignUp();
       Cookies.set('token', token, { expires: 99999 });
       void trpcUtils.invalidate();
     },

@@ -13,6 +13,7 @@ import { Icon } from '../../../components/icon';
 import LinkButton from '../../../components/linkButton';
 import Segment from '../../../components/segment/segment';
 import { useForm } from '../../../lib/form';
+import { mixpanelSetIdeaLike } from '../../../lib/mixpanel';
 import { withPageWrapper } from '../../../lib/pageWrapper';
 import { getEditIdeaRoute, getViewIdeaRoute } from '../../../lib/routes';
 import { trpc } from '../../../lib/trpc';
@@ -47,10 +48,16 @@ const LikeButton = ({
     <button
       className={styles.likeButton}
       onClick={() => {
-        void setIdeaLike.mutateAsync({
-          ideaId: idea.id,
-          isLikedByMe: !idea.isLikedByMe,
-        });
+        void setIdeaLike
+          .mutateAsync({
+            ideaId: idea.id,
+            isLikedByMe: !idea.isLikedByMe,
+          })
+          .then(({ idea: { isLikedByMe } }) => {
+            if (isLikedByMe) {
+              mixpanelSetIdeaLike(idea);
+            }
+          });
       }}
     >
       <Icon

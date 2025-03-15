@@ -289,6 +289,9 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
+      mixpanel-browser:
+        specifier: 2.47.0
+        version: 2.47.0
       nanostores:
         specifier: 0.9.3
         version: 0.9.3
@@ -335,6 +338,9 @@ importers:
       '@types/lodash':
         specifier: 4.14.198
         version: 4.14.198
+      '@types/mixpanel-browser':
+        specifier: 2.47.3
+        version: 2.47.3
       '@types/node':
         specifier: 22.10.10
         version: 22.10.10
@@ -2069,6 +2075,9 @@ packages:
 
   '@types/minimist@1.2.5':
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
+
+  '@types/mixpanel-browser@2.47.3':
+    resolution: {integrity: sha512-lum9ZdfLihJ89XoCrBjB8le/Vg6ohYSR2/3AdfLWGZdhUBEgftncDO9+0uW08FSN6SLqy2s9zCf55YV5sNLNYA==}
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
@@ -4442,6 +4451,9 @@ packages:
   minipass@7.1.2:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
+
+  mixpanel-browser@2.47.0:
+    resolution: {integrity: sha512-Ldrva0fRBEIFWmEibBQO1PulfpJVF3pf28Guk09lDirDaSQqqU/xs9zQLwN2rL5VwVtsP1aD3JaCgaa98EjojQ==}
 
   mjml-accordion@4.14.1:
     resolution: {integrity: sha512-dpNXyjnhYwhM75JSjD4wFUa9JgHm86M2pa0CoTzdv1zOQz67ilc4BoK5mc2S0gOjJpjBShM5eOJuCyVIuAPC6w==}
@@ -7881,6 +7893,8 @@ snapshots:
 
   '@types/minimist@1.2.5': {}
 
+  '@types/mixpanel-browser@2.47.3': {}
+
   '@types/ms@2.1.0': {}
 
   '@types/node@20.3.1': {}
@@ -10817,6 +10831,8 @@ snapshots:
   minipass@4.2.8: {}
 
   minipass@7.1.2: {}
+
+  mixpanel-browser@2.47.0: {}
 
   mjml-accordion@4.14.1:
     dependencies:
