@@ -1,6 +1,11 @@
 import type { TrpcRouterOutput } from '@ideanick/backend/src/router';
 import { canBlockIdeas, canEditIdea } from '@ideanick/backend/src/utils/can';
+import {
+  getAvatarUrl,
+  getCloudinaryUploadUrl,
+} from '@ideanick/shared/src/cloudinary';
 import format from 'date-fns/format';
+import ImageGallery from 'react-image-gallery';
 import Alert from '../../../components/alert';
 import Button from '../../../components/button';
 import FormItems from '../../../components/formItems';
@@ -8,6 +13,7 @@ import { Icon } from '../../../components/icon';
 import LinkButton from '../../../components/linkButton';
 import Segment from '../../../components/segment/segment';
 import { useForm } from '../../../lib/form';
+import { mixpanelSetIdeaLike } from '../../../lib/mixpanel';
 import { withPageWrapper } from '../../../lib/pageWrapper';
 import { getEditIdeaRoute, getViewIdeaRoute } from '../../../lib/routes';
 import { trpc } from '../../../lib/trpc';
@@ -42,10 +48,16 @@ const LikeButton = ({
     <button
       className={styles.likeButton}
       onClick={() => {
-        void setIdeaLike.mutateAsync({
-          ideaId: idea.id,
-          isLikedByMe: !idea.isLikedByMe,
-        });
+        void setIdeaLike
+          .mutateAsync({
+            ideaId: idea.id,
+            isLikedByMe: !idea.isLikedByMe,
+          })
+          .then(({ idea: { isLikedByMe } }) => {
+            if (isLikedByMe) {
+              mixpanelSetIdeaLike(idea);
+            }
+          });
       }}
     >
       <Icon
@@ -103,9 +115,32 @@ const ViewIdeaPage = withPageWrapper({
           Created At: {format(idea.createdAt, 'dd.MM.yyyy')}
         </div>
         <div className={styles.author}>
-          Author: {idea.author.nick}
-          {idea.author.name ? ` (${idea.author.name})` : ''}
+          <img
+            className={styles.avatar}
+            alt=""
+            src={getAvatarUrl(idea.author.avatar, 'small')}
+          />
+          <div className={styles.name}>
+            Author:
+            <br />
+            {idea.author.nick}
+            {idea.author.name ? ` (${idea.author.name})` : ''}
+          </div>
         </div>
+
+        {!!idea.images.length && (
+          <div className={styles.gallery}>
+            <ImageGallery
+              showPlayButton={false}
+              showFullscreenButton={false}
+              items={idea.images.map((image) => ({
+                original: getCloudinaryUploadUrl(image, 'image', 'large'),
+                thumbnail: getCloudinaryUploadUrl(image, 'image', 'preview'),
+              }))}
+            />
+          </div>
+        )}
+
         <div
           className={styles.text}
           dangerouslySetInnerHTML={{ __html: idea.text }}

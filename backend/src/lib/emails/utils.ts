@@ -1,19 +1,17 @@
+import { env } from '../env';
 import { promises as fs } from 'fs';
 import path from 'path';
-import {
-  getNewIdeaRoute,
-  getViewIdeaRoute,
-} from '@ideanick/frontend/src/lib/routes';
-import { type Idea, type User } from '@prisma/client';
 import fg from 'fast-glob';
 import Handlebars from 'handlebars';
 import _ from 'lodash';
-import { sendEmailThroughBrevo } from './brevo';
-import { env } from './env';
-import { logger } from './logger';
+import { sendEmailThroughBrevo } from '../brevo';
+import { logger } from '../logger';
 
 const getHbrTemplates = _.memoize(async () => {
-  const htmlPathsPattern = path.resolve(__dirname, '../emails/dist/**/*.html');
+  const htmlPathsPattern = path.resolve(
+    __dirname,
+    '../../emails/dist/**/*.html'
+  );
 
   // Приводим путь к POSIX-формату (для совместимости с Windows)
   const normalizedPattern = htmlPathsPattern.split(path.sep).join('/');
@@ -39,7 +37,7 @@ const getEmailHtml = async (
   return html;
 };
 
-const sendEmail = async ({
+export const sendEmail = async ({
   to,
   subject,
   templateName,
@@ -74,57 +72,4 @@ const sendEmail = async ({
     logger.error('email', error);
     return { ok: false };
   }
-};
-
-export const sendWelcomeEmail = async ({
-  user,
-}: {
-  user: Pick<User, 'nick' | 'email'>;
-}) => {
-  return await sendEmail({
-    to: user.email,
-    subject: 'Thanks For Registration!',
-    templateName: 'welcome',
-    templateVariables: {
-      userNick: user.nick,
-      addIdeaUrl: `${getNewIdeaRoute({ abs: true })}`,
-    },
-  });
-};
-
-export const sendIdeaBlockedEmail = async ({
-  user,
-  idea,
-}: {
-  user: Pick<User, 'email'>;
-  idea: Pick<Idea, 'nick'>;
-}) => {
-  return await sendEmail({
-    to: user.email,
-    subject: 'Your Idea Blocked!',
-    templateName: 'ideaBlocked',
-    templateVariables: {
-      ideaNick: idea.nick,
-    },
-  });
-};
-
-export const sendMostLikedIdeasEmail = async ({
-  user,
-  ideas,
-}: {
-  user: Pick<User, 'email'>;
-  ideas: Array<Pick<Idea, 'nick' | 'name'>>;
-}) => {
-  return await sendEmail({
-    to: user.email,
-    subject: 'Most Liked Ideas!',
-    templateName: 'mostLikedIdeas',
-    templateVariables: {
-      ideas: ideas.map((idea) => ({
-        name: idea.name,
-        url: getViewIdeaRoute({ abs: true, ideaNick: idea.nick }),
-      })),
-    },
-  });
 };

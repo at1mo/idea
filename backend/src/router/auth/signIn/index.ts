@@ -1,3 +1,4 @@
+import { ExpectedError } from '../../../lib/error';
 import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { getPasswordHash } from '../../../utils/getPasswordHash';
 import { signJWT } from '../../../utils/signJWT';
@@ -13,9 +14,9 @@ export const signInTrpcRoute = trpcLoggedProcedure
       },
     });
     if (!user) {
-      throw new Error('Wrong nick or password');
+      throw new ExpectedError('Wrong nick or password');
     }
 
     const token = signJWT(user.id);
-    return { token };
+    return { token, userId: user.id };
   });

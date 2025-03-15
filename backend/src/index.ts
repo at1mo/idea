@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/order
 import { env } from './lib/env';
 import cors from 'cors';
 import express from 'express';
@@ -6,6 +5,8 @@ import { applyCron } from './lib/cron';
 import { type AppContext, createAppContext } from './lib/ctx';
 import { logger } from './lib/logger';
 import { applyPassportToExpressApp } from './lib/passport';
+import { initSentry } from './lib/sentry';
+import { applyServeWebApp } from './lib/serveWebApp';
 import { applyTrpcExpressApp } from './lib/trpc';
 import { trpcRouter } from './router';
 import { presetDb } from './scripts/presetDb';
@@ -13,6 +14,7 @@ import { presetDb } from './scripts/presetDb';
 void (async () => {
   let ctx: AppContext | null = null;
   try {
+    initSentry();
     ctx = createAppContext();
     await presetDb(ctx);
     const app = express();
@@ -20,6 +22,7 @@ void (async () => {
     app.use(cors());
     applyPassportToExpressApp(app, ctx);
     await applyTrpcExpressApp(app, ctx, trpcRouter);
+    await applyServeWebApp(app);
     applyCron(ctx);
 
     app.use(

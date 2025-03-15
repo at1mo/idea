@@ -7,6 +7,7 @@ if (env.VITE_FRONTEND_SENTRY_DSN) {
   Sentry.init({
     dsn: env.VITE_FRONTEND_SENTRY_DSN,
     environment: env.HOST_ENV,
+    release: env.SOURCE_VERSION,
     normalizeDepth: 10,
   });
 }
